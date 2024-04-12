@@ -28,15 +28,15 @@ def create_embeddings(page_url):
         loader = WebBaseLoader(page_url)
         documents = loader.load()
         
-        # text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
-        # docs = text_splitter.split_documents(documents=documents)
+        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+        docs = text_splitter.split_documents(documents=documents)
         
-        # db_new = FAISS.from_documents(docs, embeddings)
+        db_new = FAISS.from_documents(docs, embeddings)
 
-        # db_old = FAISS.load_local(folder_path="embeddings/",index_name="index", embeddings=embeddings,allow_dangerous_deserialization=True)
+        db_old = FAISS.load_local(folder_path="embeddings/",index_name="index", embeddings=embeddings,allow_dangerous_deserialization=True)
 
-        # db_old.merge_from(db_new)
-        # db_old.save_local(folder_path="embeddings/",index_name="index")
+        db_old.merge_from(db_new)
+        db_old.save_local(folder_path="embeddings/",index_name="index")
         print(page_url)
         
         return True
